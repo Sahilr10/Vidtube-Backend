@@ -1,15 +1,19 @@
 {
   "name": "vidtube_yt",
   "version": "1.0.0",
-  "description": "",
+  "description": "Vidtube is a YouTube clone built with Node.js, Express, and MongoDB. It allows users to upload, view, and comment on videos.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js" 
   },
   "keywords": [
     "javascript",
     "backend"
   ],
   "author": "Sahil Raut",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
