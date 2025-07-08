@@ -11,30 +11,29 @@ const getAllVideos = asyncHandler(async (req, res) => {
     const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
     //TODO: get all videos based on query, sort, pagination
 
-      const sortOrder = sortType == "asc" ? 1 : -1;
-    const options = {
-        page: parseInt(page),
-        limit: parseInt(limit)
+
+
+    const sortOrder = sortType === "asc" ? 1 : -1;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    // Build match object dynamically
+    const match = {};
+    if (userId && mongoose.Types.ObjectId.isValid(userId)) {
+        match.owner = new mongoose.Types.ObjectId(userId);
+    }
+    if (query) {
+        match.$or = [
+            { title: { $regex: query, $options: "i" } },
+            { description: { $regex: query, $options: "i" } }
+        ];
     }
 
     const videos = await Video.aggregate([
-        {
-            $match: {
-                _id : new mongoose.Types.ObjectId(userId),
-                
-                    $or: [
-                        {title: {$regex: query, $options: "i"}},
-                        {description: {$regex: query, $options: "i"}}
-                    ]
-                
-            }
-        },
-        {
-            $sort: {
-                [sortBy]: sortOrder
-            }
-        }
-    ], options)
+        { $match: match },
+        { $sort: { [sortBy]: sortOrder } },
+        { $skip: skip },
+        { $limit: parseInt(limit) }
+    ]);
 
     return res
     .status(200)
@@ -78,7 +77,8 @@ const publishAVideo = asyncHandler(async (req, res) => {
         description,
         videoFile: videoFile.url,
         thumbnail: thumbnail.url,
-        duration: videoFile.duration
+        duration: videoFile.duration,
+        owner: req.user._id
     })
 
     return res
