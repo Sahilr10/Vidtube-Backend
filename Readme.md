@@ -92,7 +92,7 @@ All the APIs have been thoroughly tested with **Postman**. Each endpoint returns
 ## 📌 Author
 
 **Your Name**
-GitHub: [your-github-handle]()
+GitHub: [Sahilr10]()
 
 ---
 
