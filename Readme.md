@@ -1,11 +1,5 @@
 # Vidtube-backend
 
-Sure! Here's a rewritten version of your README with the same structure and meaning, but using different wording. The author section has been left blank as requested.
-
----
-
-# 📦 Chai Backend Server
-
 A fully operational backend application developed as part of the **Chai aur Backend Assignment** by [Hitesh Choudhary](https://github.com/hiteshchoudhary). This backend includes essential features such as user authentication, video uploads, playlists, tweet functionality, likes system, subscriptions, dashboard analytics, and more — all built with **Node.js**, **Express.js**, and **MongoDB**.
 
 ---
