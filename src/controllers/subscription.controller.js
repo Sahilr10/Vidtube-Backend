@@ -13,7 +13,8 @@ const toggleSubscription = asyncHandler(async (req, res) => {
     if(!isValidObjectId(channelId)){
         throw new ApiError(400, "Invalid channel id")
     }
-    if(subscriberId === channelId){
+
+    if(subscriberId.toString() === channelId.toString()){
         throw new ApiError(400, "You cannot subscribe to your own channel")
     }
     const channel = await User.findById(channelId);
@@ -49,17 +50,18 @@ const toggleSubscription = asyncHandler(async (req, res) => {
 
 // controller to return subscriber list of a channel
 const getUserChannelSubscribers = asyncHandler(async (req, res) => {
-    const {channelId} = req.params
-    if(!isValidObjectId(channelId)){
+    const {subscriberId} = req.params;
+    
+    if(!isValidObjectId(subscriberId)){
         throw new ApiError(400, "Invalid channel id")
     }
 
-    const channel = await User.findById(channelId);
+    const channel = await User.findById(subscriberId);
     if(!channel){
         throw new ApiError(404, "Channel not found")
     }
 
-    const subscribers = await Subscription.findById({channel: channelId}).select("subscriber","-password -refreshToken")
+    const subscribers = await Subscription.find({channel: subscriberId}).select("subscriber")
 
     return res
     .status(200)
@@ -68,18 +70,18 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
 
 // controller to return channel list to which user has subscribed
 const getSubscribedChannels = asyncHandler(async (req, res) => {
-    const { subscriberId } = req.params
+    const { channelId } = req.params
 
-    if(!isValidObjectId(subscriberId)){
+    if(!isValidObjectId(channelId)){
         throw new ApiError(400, "Invalid subscriber id")
     }
 
-    const subscriber = await User.findById(subscriberId);
+    const subscriber = await User.findById(channelId);
     if(!subscriber){
         throw new ApiError(404, "Subscriber not found")
     }
 
-    const subscriptions = await Subscription.find({subscriber: subscriberId}).select("channel","-password -refreshToken")
+    const subscriptions = await Subscription.find({subscriber: channelId}).select("channel")
 
     return res
     .status(200)
