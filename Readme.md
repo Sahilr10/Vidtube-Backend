@@ -1,6 +1,6 @@
 # Vidtube-backend
 
-A fully operational backend application developed as part of the **Chai aur Backend Assignment** by [Hitesh Choudhary](https://github.com/hiteshchoudhary). This backend includes essential features such as user authentication, video uploads, playlists, tweet functionality, likes system, subscriptions, dashboard analytics, and more — all built with **Node.js**, **Express.js**, and **MongoDB**.
+A fully operational backend application inspired by Youtube. This backend includes essential features such as user authentication, video uploads, playlists, tweet functionality, likes system, subscriptions, dashboard analytics, and more — all built with **Node.js**, **Express.js**, and **MongoDB**.
 
 ---
 
@@ -91,13 +91,11 @@ All the APIs have been thoroughly tested with **Postman**. Each endpoint returns
 
 ## 📌 Author
 
-**Your Name**
+Sahil Raut
 GitHub: [Sahilr10]()
 
 ---
 
-## 🙏 Credits
 
-A huge thanks to **[Hitesh Choudhary](https://github.com/hiteshchoudhary)** sir for creating the wonderful **Chai aur Backend** series that guided the development of this project.
 
 ---
